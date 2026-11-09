@@ -1,0 +1,64 @@
+# Sistema de Controle de Doações para ONGs
+# Projeto Integrador - UNISA
+
+def exibir_menu():
+    print("\n--- SISTEMA DE GESTÃO DE DOAÇÕES (ONG) ---")
+    print("1. Cadastrar Doação")
+    print("2. Listar Doações")
+    print("3. Cadastrar Beneficiário (Família)")
+    print("4. Listar Beneficiários")
+    print("5. Sair")
+
+def app():
+    # Estruturas de dados para armazenar as informações em memória
+    lista_doacoes = []
+    lista_beneficiarios = []
+
+    while True:
+        exibir_menu()
+        opcao = input("\nEscolha uma opção: ")
+
+        if opcao == "1":
+            item = input("Descrição do item doado (ex: Cesta básica, Roupas): ")
+            quantidade = int(input("Quantidade: "))
+            doador = input("Nome do doador: ")
+            
+            # Salvando em um dicionário e adicionando à lista
+            doacao = {"item": item, "quantidade": quantidade, "doador": doador}
+            lista_doacoes.append(doacao)
+            print("Sucesso: Doação cadastrada com êxito!")
+
+        elif opcao == "2":
+            print("\n--- DOAÇÕES CADASTRADAS ---")
+            if not lista_doacoes:
+                print("Nenhuma doação registrada.")
+            else:
+                for i, d in enumerate(lista_doacoes, 1):
+                    print(f"{i}. Item: {d['item']} | Qtd: {d['quantidade']} | Doador: {d['doador']}")
+
+        elif opcao == "3":
+            nome = input("Nome do beneficiário/família: ")
+            telefone = input("Telefone para contato: ")
+            beneficiario = {"nome": nome, "telefone": telefone, "recebeu": False}
+            lista_beneficiarios.append(beneficiario)
+            print("Sucesso: Beneficiário cadastrado com êxito!")
+
+        elif opcao == "4":
+            print("\n--- BENEFICIÁRIOS CADASTRADOS ---")
+            if not lista_beneficiarios:
+                print("Nenhum beneficiário registrado.")
+            else:
+                for i, b in enumerate(lista_beneficiarios, 1):
+                    # Correção da sintaxe do operador ternário
+                    status = "Já recebeu" if b['recebeu'] else "Aguardando"
+                    print(f"{i}. Nome: {b['nome']} | Tel: {b['telefone']} | Status: {status}")
+
+        elif opcao == "5":
+            print("Encerrando o sistema. Até logo!")
+            break
+
+        else:
+            print("Opção inválida! Escolha um número de 1 a 5.")
+
+# Chamada direta para funcionar perfeitamente no myCompiler
+app()
